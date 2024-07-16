@@ -25,7 +25,8 @@ function createBot() {
         if (response.rows.length == 0) {
             bot.sendMessage(
                 msg.chat.id,
-                "На данный момент у вас нет курсов которые можно активировать. Вы можете приобрести их на сайте " + config.website
+                "На данный момент у вас нет курсов которые можно активировать. Вы можете приобрести их на сайте " +
+                    config.website
             )
         } else {
             bot.sendMessage(
@@ -44,6 +45,29 @@ function createBot() {
             msg.chat.id,
             'Команда /activate используется вместе с параметрами (имя курса) и (кодовое слово). Например: /activate "Основы HTML" "холодильник" '
         )
+    })
+
+    bot.on("chat_join_request", async ({ chat, from }) => {
+        const courseName = await pgClient
+            .query(`select coursename from courses where groupid=${chat.id}`)
+            .rows?.at(0)
+
+        if (!courseName) {
+            return
+        }
+
+        const activated =
+            (await pgClient.query(
+                `select * from activated where username='${from.username}' and courseName='${course.courseName}'`
+            ).rowCount) == 1
+
+        if (activated) {
+            bot.approveChatJoinRequest(chat.id, from.id)
+        } else {
+            bot.declineChatJoinRequest(chat.id, from.id)
+        }
+
+        
     })
 
     bot.onText(/\/activate "(.+)" "(.+)"/, async (msg, match) => {
@@ -82,36 +106,21 @@ function createBot() {
                 throw new Error()
             }
 
-            bot.approveChatJoinRequest(activatedCourse.groupid, msg.from.id)
+            Promise.all(
+                pgClient.query(
+                    `delete from orders where username='${msg.from.username}' and courseName='${activatedCourse.coursename}'`
+                ),
+                pgClient.query(
+                    `insert into activated values ('${msg.from.username}', '${activatedCourse.coursename}')`
+                )
+            )
                 .then(() => {
                     bot.sendMessage(
                         msg.chat.id,
                         `Курс успешно активирован! \n Для вступления в группу в которой будут проходить занятия перейдите по этой ссылке - ${activatedCourse.grouplink}`
                     )
                 })
-                .catch((error) => {
-                    if (error?.code === "ETELEGRAM") {
-                        bot.sendMessage(
-                            msg.chat.id,
-                            `Вы уже находитесь в группе этого курса - ${activatedCourse.grouplink}`
-                        )
-                        return
-                    }
-
-                    bot.sendMessage(
-                        msg.chat.id,
-                        "Произошла ошибка сервера во время активации курса, приносим свои извинения"
-                    )
-                })
-                .finally(() => {
-                    pgClient.query(
-                        `delete from orders where username='${msg.from.username}' and courseName='${activatedCourse.coursename}'`
-                    )
-
-                    pgClient.query(
-                        `insert into activated values ('${msg.from.username}', '${activatedCourse.coursename}')`
-                    )
-                })
+                .catch((error) => console.log(error))
         } catch (e) {
             console.log("Error in Telegram Bot command activate:" + e)
         }
