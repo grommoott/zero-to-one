@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="1152pt"
+    height="384pt"
+    viewBox="0 0 1152 384">
+<defs/>
+<path id="shape0" transform="matrix(1.88450274056088 0 0 1.88450274056088 297.978723317103 47.2699029902256)" fill="none" stroke="#00d815" stroke-width="14.4" stroke-linecap="square" stroke-linejoin="bevel" d="M72 76.8004C72.015 0.2344 72.0735 0.0903981 36 0.000393802C0.136508 -0.1421 0.00377505 38.4094 0 76.8004C0.00752233 115.214 -0.0809923 153.705 36 153.6C72.0436 153.593 71.94 153.794 72 76.8004Z" sodipodi:nodetypes="ccccc"/><path id="shape1" transform="matrix(1.88450274056088 0 0 1.88450274056088 433.66292336024 192.00045558609)" fill="none" stroke="#00d815" stroke-width="14.4" stroke-linecap="square" stroke-linejoin="bevel" d="M0 0C18.7778 0 30.4799 0 48.7144 0" sodipodi:nodetypes="cc"/><path id="shape2" transform="matrix(1.88450274056088 0 0 1.88450274056088 456.913137425003 47.2704760597928)" fill="none" stroke="#00d815" stroke-width="14.4" stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="1.91999995708466" d="M0 153.6C36.7226 153.526 36.7494 115.226 36.6979 76.8C36.7407 38.5147 36.7106 0.0141291 1.13687e-13 0" sodipodi:nodetypes="ccc"/><text id="shape3" krita:useRichText="true" text-rendering="auto" krita:textVersion="3" transform="matrix(3.16410971337005 0 0 3.16410971337005 14.169479570317 260.34476980861)" fill="#ffffff" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" letter-spacing="0" word-spacing="0" style="text-align: start;text-align-last: auto;font-family: JetBrains Mono ExtraBold;font-size: 60;font-weight: 800;"><tspan x="0">IT</tspan></text><text id="shape4" krita:useRichText="true" text-rendering="auto" krita:textVersion="3" transform="matrix(3.16410971337005 0 0 3.16410971337005 592.761875150395 246.675815846851)" fill="#ffffff" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" letter-spacing="0" word-spacing="0" style="text-align: start;text-align-last: auto;font-family: JetBrains Mono ExtraBold;font-size: 48;font-weight: 800;"><tspan x="0">School</tspan></text>
+</svg>

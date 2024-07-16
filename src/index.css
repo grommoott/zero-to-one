@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer utilities {
+    .text-main {
+        color: #00d815;
+    }
+}
+
+.bg-main {
+    background-color: #00d815;
+}
+
+.border-main {
+    border-color: #00d815;
+}
+
+.jetbrains-mono-light {
+    font-family: "JetBrains Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.jetbrains-mono-bold {
+    font-family: "JetBrains Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.menu-button {
+    background-color: #00d815;
+    color: #18181b;
+}
+
+.menu-button:hover {
+    background-color: #ffffff;
+    color: #18181b;
+}
+
+.dark-button {
+    background-color: #00d815;
+    color: #18181b;
+}
+
+.dark-button:hover {
+    background-color: #ffffff;
+    color: #18181b;
+}
+
+html {
+    scrollbar-color: #ffffff #18181b;
+    scrollbar-width: thin;
+}
+
+.light-button {
+    background-color: #ffffff;
+    color: #18181b;
+}
+
+.light-button:hover {
+    background-color: #ffffff;
+    color: #00d815;
+}
