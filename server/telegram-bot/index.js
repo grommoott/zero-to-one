@@ -1,3 +1,4 @@
+const config = require("../config")
 const pgClient = require("../pgClient")
 const bcrypt = require("bcrypt")
 
@@ -24,7 +25,7 @@ function createBot() {
         if (response.rows.length == 0) {
             bot.sendMessage(
                 msg.chat.id,
-                "На данный момент у вас нет курсов которые можно активировать. Вы можете приобрести их на сайте https://zeroToOneITSchool.onrender.com"
+                "На данный момент у вас нет курсов которые можно активировать. Вы можете приобрести их на сайте " + config.website
             )
         } else {
             bot.sendMessage(
