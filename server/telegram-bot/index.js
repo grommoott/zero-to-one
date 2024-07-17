@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt")
 function createBot() {
     const TelegramBot = require("node-telegram-bot-api")
 
-    const inviteLink = "https://t.me/+LEKCjIYbdzM2NzJi"
     const token = "6406717712:AAHZBB9Hj7v7ecVNCFO_PRaKBvOqKm8CWGo"
 
     const bot = new TelegramBot(token, { polling: true })

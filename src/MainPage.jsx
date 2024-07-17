@@ -8,15 +8,16 @@ import Book from "./components/4.book/Book"
 import { SelectedCourseProvider } from "./SelectedCourseContext"
 import Footer from "./components/5.footer/Footer"
 import { host } from "./config"
+import { Link } from "react-router-dom"
 
-function App() {
+export default function MainPage() {
     const [courses, setCourses] = useState(null)
     const [selectedCourse, setSelectedCourse] = useState(-1)
 
     useEffect(() => {
         const fun = async () => {
             const response = await fetch(
-                host + "/api/getCourses",
+                "/api/getCourses",
                 { method: "get" }
             )
             const json = await response.json()
@@ -44,5 +45,3 @@ function App() {
         </>
     )
 }
-
-export default App

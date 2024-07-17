@@ -108,7 +108,7 @@ export default function BookForm() {
                         msg("Запрос отправлен!")
 
                         const response = await fetch(
-                            host + "/api/makeOrder",
+                            "/api/makeOrder",
                             {
                                 body: JSON.stringify({
                                     username: inputData.username,

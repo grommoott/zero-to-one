@@ -11,7 +11,7 @@ export default function CourseCard({ course, onBook, onMoreInfo, style }) {
         >
             <div className="w-full h-1/3 object-cover group overflow-hidden relative cursor-pointer">
                 <img
-                    src={`${host}/api/getCourseImage?name=${course.name}`}
+                    src={`/api/getCourseImage?name=${course.name}`}
                     className="w-full group-hover:scale-125 duration-200 group-hover:blur-sm group-active:grayscale select-none"
                     onClick={() => onMoreInfo(course.id)}
                     draggable="false"
