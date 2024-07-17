@@ -7,16 +7,15 @@ import { CoursesProvider } from "./CoursesContext"
 import Book from "./components/4.book/Book"
 import { SelectedCourseProvider } from "./SelectedCourseContext"
 import Footer from "./components/5.footer/Footer"
+import config from "./config"
+
 export default function MainPage() {
     const [courses, setCourses] = useState(null)
     const [selectedCourse, setSelectedCourse] = useState(-1)
 
     useEffect(() => {
         const fun = async () => {
-            const response = await fetch(
-                "/api/getCourses",
-                { method: "get" }
-            )
+            const response = await fetch(config.api + "/getCourses", { method: "get" })
             const json = await response.json()
 
             setCourses(json)
@@ -31,7 +30,9 @@ export default function MainPage() {
             <Preview />
             <About />
 
-            <SelectedCourseProvider value={{selectedCourse, setSelectedCourse}}>
+            <SelectedCourseProvider
+                value={{ selectedCourse, setSelectedCourse }}
+            >
                 <CoursesProvider value={courses}>
                     <Courses />
                     <Book />

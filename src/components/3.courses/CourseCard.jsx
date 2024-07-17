@@ -1,6 +1,7 @@
 import PropTypes from "prop-types"
 import { motion } from "framer-motion"
 import Button from "../Button"
+import config from "../../config"
 
 export default function CourseCard({ course, onBook, onMoreInfo, style }) {
     return (
@@ -8,15 +9,20 @@ export default function CourseCard({ course, onBook, onMoreInfo, style }) {
             className="flex flex-col w-60 h-96 mx-4 duration-100 bg-zinc-900 shadow-xl rounded-xl overflow-hidden"
             style={style}
         >
-            <div className="w-full h-1/3 object-cover group overflow-hidden relative cursor-pointer">
+            <div
+                className="w-full h-1/3 object-cover group overflow-hidden relative cursor-pointer outline-none"
+                onClick={() => onMoreInfo(course.id)}
+                onKeyUp={(key) => key.key === "Enter" && onMoreInfo(course.id)}
+                tabIndex={0}
+                
+            >
                 <img
-                    src={`/api/getCourseImage?name=${course.name}`}
-                    className="w-full group-hover:scale-125 duration-200 group-hover:blur-sm group-active:grayscale select-none"
-                    onClick={() => onMoreInfo(course.id)}
+                    src={`${config.api}/getCourseImage?name=${course.name}`}
+                    className="w-full group-focus:scale-125 group-hover:scale-125 duration-200 group-hover:blur-sm group-active:grayscale select-none"
                     draggable="false"
                 />
-                <div className="absolute bottom-0 w-full h-full bg-gradient-to-t from-black/100 to-black/0 opacity-0 group-hover:opacity-100 duration-200 pointer-events-none" />
-                <h3 className="absolute bottom-2 text-white w-full text-xl jetbrains-mono-bold text-center opacity-0 group-hover:opacity-100 duration-200 select-none group-active:scale-90  pointer-events-none">
+                <div className="absolute bottom-0 w-full h-full bg-gradient-to-t from-black/60 to-black/0 opacity-0 group-hover:opacity-100 group-focus:opacity-100 duration-200 pointer-events-none" />
+                <h3 className="absolute bottom-2 text-white w-full text-xl jetbrains-mono-bold text-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 duration-200 select-none group-active:scale-90  pointer-events-none">
                     Нажмите, чтобы узнать больше
                 </h3>
             </div>

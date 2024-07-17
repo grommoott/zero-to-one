@@ -22,7 +22,13 @@ export default function Select({
         <motion.button
             className="bg-white shadow duration-100 h-fit relative min-w-60 m-2"
             initial={"initial"}
-            animate={isDeployed != undefined ? isDeployed ? "shown" : "hidden" : "initial"}
+            animate={
+                isDeployed != undefined
+                    ? isDeployed
+                        ? "shown"
+                        : "hidden"
+                    : "initial"
+            }
             variants={{
                 shown: {
                     borderRadius: [
@@ -117,6 +123,15 @@ export default function Select({
                             setSelectedId(id)
                             toggleDeployed()
                         }}
+                        onKeyUp={(key) => {
+                            if (key.key != "Enter") {
+                                return
+                            }
+                            
+                            onChange(id)
+                            setSelectedId(id)
+                            toggleDeployed()
+                        }}
                         key={id}
                         whileHover={{
                             color: "#00d815",
@@ -127,6 +142,13 @@ export default function Select({
                         }}
                         whileTap={{
                             scale: 0.9,
+                            transition: {
+                                duration: 0.1,
+                                ease: "easeInOut",
+                            },
+                        }}
+                        whileFocus={{
+                            color: "#00d815",
                             transition: {
                                 duration: 0.1,
                                 ease: "easeInOut",

@@ -17,6 +17,7 @@ export default function PopupWindow({
                 animate={isVisible ? "visible" : "hidden"}
                 className="fixed top-0 left-0 bottom-0 right-0 bg-black/50 cursor-pointer z-40"
                 style={{ pointerEvents: isVisible ? "auto" : "none" }}
+                onKeyUpCapture={(key) => console.log(key)}
                 onClick={toggleVisible}
             ></motion.div>
 
@@ -30,6 +31,7 @@ export default function PopupWindow({
                     pointerEvents: isVisible ? "auto" : "none",
                 }}
                 onClick={(e) => e.stopPropagation()}
+                
             >
                 <CloseButton
                     onClick={toggleVisible}

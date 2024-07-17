@@ -9,10 +9,10 @@ export default function Loading({ className }) {
             transition={{
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: 0.5,
+                duration: 1.5,
                 ease: "linear",
             }}
-            className={`h-16 ${className}`}
+            className={`h-16 z-10 ${className}`}
         />
     )
 }

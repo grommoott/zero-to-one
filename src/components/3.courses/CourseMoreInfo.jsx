@@ -2,6 +2,7 @@ import { useContext } from "react"
 import PopupWindow from "../PopupWindow"
 import { useCoursesContex } from "../../CoursesContext"
 import Button from "../Button"
+import config from "../../config"
 
 export default function CourseMoreInfo({
     courseId,
@@ -17,7 +18,7 @@ export default function CourseMoreInfo({
             {course && (
                 <div className="flex flex-col">
                     <img
-                        src={`http://localhost:7778/api/getCourseImage?id=${courseId}`}
+                        src={`${config.api}/getCourseImage?name=${courses[courseId].name}`}
                         className="h-60 object-cover select-none"
                         draggable="false"
                     />

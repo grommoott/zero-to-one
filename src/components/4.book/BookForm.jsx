@@ -5,6 +5,7 @@ import Select from "./Select"
 import { useEffect, useState } from "react"
 import { useSelectedCourseContext } from "../../SelectedCourseContext"
 import { useAnimate } from "framer-motion"
+import config from "../../config"
 
 export default function BookForm() {
     const courses = useCoursesContex()
@@ -107,7 +108,7 @@ export default function BookForm() {
                         msg("Запрос отправлен!")
 
                         const response = await fetch(
-                            "/api/makeOrder",
+                            config.api + "/makeOrder",
                             {
                                 body: JSON.stringify({
                                     username: inputData.username,
