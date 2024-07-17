@@ -7,9 +7,6 @@ import { CoursesProvider } from "./CoursesContext"
 import Book from "./components/4.book/Book"
 import { SelectedCourseProvider } from "./SelectedCourseContext"
 import Footer from "./components/5.footer/Footer"
-import { host } from "./config"
-import { Link } from "react-router-dom"
-
 export default function MainPage() {
     const [courses, setCourses] = useState(null)
     const [selectedCourse, setSelectedCourse] = useState(-1)

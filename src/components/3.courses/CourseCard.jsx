@@ -1,7 +1,6 @@
 import PropTypes from "prop-types"
 import { motion } from "framer-motion"
 import Button from "../Button"
-import { host } from "../../config"
 
 export default function CourseCard({ course, onBook, onMoreInfo, style }) {
     return (
