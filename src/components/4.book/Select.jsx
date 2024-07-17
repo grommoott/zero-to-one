@@ -15,7 +15,7 @@ export default function Select({
     const elementHeight = 2.75
 
     function toggleDeployed() {
-        setIsDeployed(!isDeployed)
+        setIsDeployed(!isDeployed && options.length != 0)
     }
 
     return (
@@ -43,7 +43,7 @@ export default function Select({
                 },
             }}
             transition={{
-                duration: Math.min(4, options.length) / 10 - 0.05,
+                duration: Math.max(Math.min(4, options.length) / 10 - 0.05, 0),
                 ease: "easeInOut",
                 times: [0, 1, 1],
             }}
