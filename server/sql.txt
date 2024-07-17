@@ -1,0 +1,9 @@
+create table orders (
+	username text,
+	coursename text,
+	keywordhash text,
+	moment bigint,
+	primary key (username, coursename),
+	foreign key (coursename) references courses (coursename) on update cascade
+)
+

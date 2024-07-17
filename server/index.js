@@ -1,5 +1,7 @@
 const express = require("express")
+const adminBot = require("./telegram-bot-for-admins")
 const bot = require("./telegram-bot")
+
 const cors = require("cors")
 const router = require("./router")
 const PORT = process.env.PORT || 10000

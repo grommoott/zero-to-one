@@ -26,7 +26,7 @@ module.exports = {
 
     getCourseImage: async (req, res) => {
         res.sendFile(
-            path.join(__dirname, `../dist/courses/${req.query.name}.jpg`)
+            path.join(__dirname, `./course-images/${req.query.name}.jpg`)
         )
     },
 
