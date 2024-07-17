@@ -63,9 +63,9 @@ export default function CoursesList() {
     const onBook = (id) => {
         setSelectedCourse(id)
         document
-            .querySelector("book-yakor")
+            .querySelector(".book-yakor")
             .scrollIntoView({
-                behaviour: "smooth",
+                behaviour: "auto",
                 block: "start",
             })
     }

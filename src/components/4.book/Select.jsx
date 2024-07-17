@@ -11,7 +11,7 @@ export default function Select({
     setSelectedId = () => {},
     placeholder = "Non-selected",
 }) {
-    const [isDeployed, setIsDeployed] = useState(false)
+    const [isDeployed, setIsDeployed] = useState()
     const elementHeight = 2.75
 
     function toggleDeployed() {
@@ -21,8 +21,8 @@ export default function Select({
     return (
         <motion.button
             className="bg-white shadow duration-100 h-fit relative min-w-60 m-2"
-            initial={{ borderRadius: "0.25rem 0.25rem 0.25rem 0.25rem" }}
-            animate={isDeployed ? "shown" : "hidden"}
+            initial={"initial"}
+            animate={isDeployed != undefined ? isDeployed ? "shown" : "hidden" : "initial"}
             variants={{
                 shown: {
                     borderRadius: [
@@ -38,6 +38,9 @@ export default function Select({
                         "0.25rem 0.25rem 0.25rem 0.25rem",
                     ],
                 },
+                initial: {
+                    borderRadius: "0.25rem 0.25rem 0.25rem 0.25rem",
+                },
             }}
             transition={{
                 duration: Math.min(4, options.length) / 10 - 0.05,
@@ -50,7 +53,10 @@ export default function Select({
                 initial={{ opacity: 0 }}
                 animate={isDeployed ? "shown" : "hidden"}
                 variants={{ shown: { opacity: 1 }, hidden: { opacity: 0 } }}
-                transition={{ duration: Math.min(4, options.length) / 10, ease: "easeInOut" }}
+                transition={{
+                    duration: Math.min(4, options.length) / 10,
+                    ease: "easeInOut",
+                }}
                 className="w-full h-12 absolute bg-black/0 top-0 left-0 right-0 rounded pointer-events-none"
                 style={{ borderBottom: `2px #d4d4d8 solid`, zIndex: 1 }}
             ></motion.div>
@@ -83,7 +89,8 @@ export default function Select({
                 animate={isDeployed ? "shown" : "hidden"}
                 variants={{
                     shown: {
-                        height: elementHeight * Math.min(4, options.length) + "rem",
+                        height:
+                            elementHeight * Math.min(4, options.length) + "rem",
                         transition: {
                             duration: Math.min(4, options.length) / 10,
                             ease: "easeInOut",
@@ -115,15 +122,15 @@ export default function Select({
                             color: "#00d815",
                             transition: {
                                 duration: 0.1,
-                                ease: "easeInOut"
-                            }
+                                ease: "easeInOut",
+                            },
                         }}
                         whileTap={{
                             scale: 0.9,
                             transition: {
                                 duration: 0.1,
-                                ease: "easeInOut"
-                            }
+                                ease: "easeInOut",
+                            },
                         }}
                         variants={select.item.variants}
                         transition={select.item.transition}

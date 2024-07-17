@@ -12,7 +12,7 @@ export default function Book() {
             }}
         >
             <div className="relative">
-                <div id="book-yakor" className="absolute -top-16"></div>
+                <div className="book-yakor absolute -top-16"></div>
             </div>
 
             <h1

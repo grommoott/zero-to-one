@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 export default function Courses() {
     return (
         <div className="flex flex-col items-center pt-32 pb-16 relative">
-            <div id="courses-yakor" className="top-0 absolute"></div>
+            <div className="courses-yakor top-0 absolute"></div>
 
             <motion.h1
                 initial="hidden"

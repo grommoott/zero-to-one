@@ -7,6 +7,7 @@ import { CoursesProvider } from "./CoursesContext"
 import Book from "./components/4.book/Book"
 import { SelectedCourseProvider } from "./SelectedCourseContext"
 import Footer from "./components/5.footer/Footer"
+import { host } from "./config"
 
 function App() {
     const [courses, setCourses] = useState(null)
@@ -15,7 +16,7 @@ function App() {
     useEffect(() => {
         const fun = async () => {
             const response = await fetch(
-                "/api/getCourses",
+                host + "/api/getCourses",
                 { method: "get" }
             )
             const json = await response.json()

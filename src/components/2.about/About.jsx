@@ -13,7 +13,7 @@ export default function About() {
 
     return (
         <div className="flex flex-col items-stretch bg-zinc-950 text-white py-10 pb-20 relative">
-            <div id="about-yakor" className="absolute -top-16"></div>
+            <div className="about-yakor absolute -top-16"></div>
             <motion.h1
                 initial="hidden"
                 animate={isStarsInView ? "shown" : "hidden"}

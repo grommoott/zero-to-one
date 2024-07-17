@@ -48,26 +48,26 @@ function createBot() {
     })
 
     bot.on("chat_join_request", async ({ chat, from }) => {
-        const courseName = await pgClient
-            .query(`select coursename from courses where groupid=${chat.id}`)
-            .rows?.at(0)
+        console.log("request")
+        const courseName = await pgClient.query(`select coursename from courses where groupid=${chat.id}`)
 
         if (!courseName) {
+            console.log("Invalid course name", courseName)
             return
         }
 
         const activated =
             (await pgClient.query(
-                `select * from activated where username='${from.username}' and courseName='${course.courseName}'`
+                `select * from activated where username='${from.username}' and courseName='${courseName}'`
             ).rowCount) == 1
 
         if (activated) {
             bot.approveChatJoinRequest(chat.id, from.id)
+            console.log("Принять")
         } else {
             bot.declineChatJoinRequest(chat.id, from.id)
+            console.log("Отклонить")
         }
-
-        
     })
 
     bot.onText(/\/activate "(.+)" "(.+)"/, async (msg, match) => {
@@ -106,14 +106,14 @@ function createBot() {
                 throw new Error()
             }
 
-            Promise.all(
+            Promise.all([
                 pgClient.query(
                     `delete from orders where username='${msg.from.username}' and courseName='${activatedCourse.coursename}'`
                 ),
                 pgClient.query(
                     `insert into activated values ('${msg.from.username}', '${activatedCourse.coursename}')`
-                )
-            )
+                ),
+            ])
                 .then(() => {
                     bot.sendMessage(
                         msg.chat.id,

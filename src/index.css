@@ -54,6 +54,7 @@
 html {
     scrollbar-color: #ffffff #18181b;
     scrollbar-width: thin;
+    scroll-behavior: smooth;
 }
 
 .light-button {
