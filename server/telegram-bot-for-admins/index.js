@@ -10,10 +10,15 @@ async function createBot() {
 
     try {
         const courses = (
-            await pgClient.query("select photoId from courses")
+            await pgClient.query("select * from courses")
         ).rows
 
         for (course of courses) {
+            if (!course.photoid) {
+                console.log(`Course "${course.coursename}" has bad photoid`)
+                continue
+            } 
+
             const filePath = await bot.downloadFile(
                 course.photoid,
                 path.join(__dirname, `../course-images/`)
