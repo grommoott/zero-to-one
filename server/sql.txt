@@ -4,6 +4,13 @@ create table orders (
 	keywordhash text,
 	moment bigint,
 	primary key (username, coursename),
-	foreign key (coursename) references courses (coursename) on update cascade
-)
+	foreign key (coursename) references courses (coursename) on update cascade on delete restrict
+);
+
+create table activated (
+	username text,
+	coursename text,
+	primary key (username, coursename),
+	foreign key (coursename) references courses (coursename) on update cascade on delete restrict
+);
 

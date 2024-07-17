@@ -7,6 +7,23 @@ async function createBot() {
     const token = "7200014819:AAHnGd9s9Woa8_a-dCXB9foLmR5bkB5Z50Q" // кто скопирует тот лох
     const admins = (await pgClient.query("select username from admins")).rows
 
+    try {
+        const courses = (
+            await pgClient.query("select photoId from courses")
+        ).rows
+
+        for (course of courses) {
+            const filePath = await bot.downloadFile(
+                course.photoid,
+                path.join(__dirname, `../course-images/`)
+            )
+
+            fs.rename(filePath, path.join(__dirname, `../course-images/${course.coursename}.jpg`))
+        }
+    } catch (e) {
+        console.log(e)
+    }
+
     const bot = new TelegramBot(token, { polling: true })
 
     bot.onText(/^\/start/, (msg) => {
@@ -60,7 +77,7 @@ async function createBot() {
 
             try {
                 await pgClient.query(
-                    `insert into courses values ('${match[1]}', '${match[2]}', '${match[3]}', ${match[4]}, '${match[5]}', ${match[6]})`
+                    `insert into courses values ('${match[1]}', '${match[2]}', '${match[3]}', ${match[4]}, '${match[5]}', ${match[6]}, ${fileId})`
                 )
                 bot.sendMessage(
                     msg.chat.id,
@@ -121,7 +138,12 @@ async function createBot() {
 
             fs.rename(
                 filePath,
-                path.join(__dirname, `../course-images/${match[2] == "_" ? match[1] : match[2]}.jpg`)
+                path.join(
+                    __dirname,
+                    `../course-images/${
+                        match[2] == "_" ? match[1] : match[2]
+                    }.jpg`
+                )
             )
 
             try {
@@ -150,6 +172,8 @@ async function createBot() {
                 if (match[7] != "_") {
                     args.push(`groupId=${match[7]}`)
                 }
+
+                args.push(`photoid=${fileId}`)
 
                 await pgClient.query(
                     `update courses set ${args.join(", ")} where courseName='${
@@ -209,7 +233,9 @@ async function createBot() {
                 }
 
                 await pgClient.query(
-                    `update courses set ${args.join(", ")} where courseName='${match[1]}'`
+                    `update courses set ${args.join(", ")} where courseName='${
+                        match[1]
+                    }'`
                 )
                 bot.sendMessage(
                     msg.chat.id,
