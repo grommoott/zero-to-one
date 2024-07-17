@@ -2,7 +2,7 @@ const express = require("express")
 const bot = process.env.ISONRENDER ? null : require("./telegram-bot")
 const cors = require("cors")
 const router = require("./router")
-const PORT = process.env.PORT || 7777
+const PORT = 4000
 
 const app = express()
 
