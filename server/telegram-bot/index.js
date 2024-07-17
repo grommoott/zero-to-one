@@ -9,7 +9,6 @@ function createBot() {
     const bot = new TelegramBot(token, { polling: true })
 
     bot.on("chat_join_request", async ({ chat, from }) => {
-        console.log("request")
         const courseName = await pgClient.query(`select coursename from courses where groupid=${chat.id}`)
 
         if (!courseName) {
@@ -24,10 +23,8 @@ function createBot() {
 
         if (activated) {
             bot.approveChatJoinRequest(chat.id, from.id)
-            console.log("Принять")
         } else {
             bot.declineChatJoinRequest(chat.id, from.id)
-            console.log("Отклонить")
         }
     })
 

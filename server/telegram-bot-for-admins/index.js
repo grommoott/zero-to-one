@@ -76,7 +76,7 @@ async function createBot() {
 
             try {
                 await pgClient.query(
-                    `insert into courses values ('${match[1]}', '${match[2]}', '${match[3]}', ${match[4]}, '${match[5]}', ${match[6]}, ${fileId})`
+                    `insert into courses values ('${match[1]}', '${match[2]}', '${match[3]}', ${match[4]}, '${match[5]}', ${match[6]}, '${fileId}')`
                 )
                 bot.sendMessage(
                     msg.chat.id,
@@ -172,7 +172,7 @@ async function createBot() {
                     args.push(`groupId=${match[7]}`)
                 }
 
-                args.push(`photoid=${fileId}`)
+                args.push(`photoid='${fileId}'`)
 
                 await pgClient.query(
                     `update courses set ${args.join(", ")} where courseName='${
