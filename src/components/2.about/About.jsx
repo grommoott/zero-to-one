@@ -19,7 +19,7 @@ export default function About() {
                 animate={isStarsInView ? "shown" : "hidden"}
                 variants={about.parent.variants}
                 transition={about.parent.transition}
-                className="uppercase text-7xl jetbrains-mono-bold mx-auto py-10 relative"
+                className="uppercase text-5xl sm:text-7xl jetbrains-mono-bold mx-auto py-10 relative"
                 style={{zIndex: 1}}
             >
                 О ШКОЛЕ
@@ -27,7 +27,7 @@ export default function About() {
 
             <div
                 ref={stars}
-                className="absolute my-6 py-10 w-80 left-1/2 right-1/2 -translate-x-1/2"
+                className="absolute my-6 py-10 w-48 sm:w-80 left-1/2 right-1/2 -translate-x-1/2"
             >
                 <Star
                     height="3rem"
