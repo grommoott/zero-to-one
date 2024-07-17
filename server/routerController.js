@@ -42,7 +42,7 @@ module.exports = {
         try {
             const response1 = await pgClient.query(`select * from courses where courseName='${req.body.courseName}'`)
 
-            if (response1.rows.length == 0) {
+            if (response1.rowCount == 0) {
                 res.statusMessage = "Invalid courseName"
                 res.sendStatus(400)
                 return
@@ -50,7 +50,7 @@ module.exports = {
 
             const response2 = await pgClient.query(`select * from orders where courseName='${req.body.courseName}' and username='${req.body.username}'`)
 
-            if (response2.rows.length != 0) {
+            if (response2.rowCount != 0) {
                 res.statusMessage = "Order is already exists"
                 res.sendStatus(400)
                 return
@@ -58,7 +58,7 @@ module.exports = {
 
             const response3 = await pgClient.query(`select * from activated where courseName='${req.body.courseName}' and username='${req.body.username}'`)
 
-            if (response3.rows.length != 0) {
+            if (response3.rowCount != 0) {
                 res.statusMessage = "Course is already activated"
                 res.sendStatus(400)
                 return
@@ -70,7 +70,7 @@ module.exports = {
                 }', '${await bcrypt.hash(
                     req.body.keyword,
                     salt
-                )}', ${new Date().getTime()});`
+                )}', ${response1.rows[0].price}, ${new Date().getTime()});`
             )
             res.sendStatus(200)
         } catch (e) {

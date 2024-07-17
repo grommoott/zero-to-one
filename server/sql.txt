@@ -2,15 +2,16 @@ create table orders (
 	username text,
 	coursename text,
 	keywordhash text,
+	price double persicion,
 	moment bigint,
 	primary key (username, coursename),
-	foreign key (coursename) references courses (coursename) on update cascade on delete restrict
+	foreign key (coursename) references courses (coursename) on update cascade on delete set null
 );
 
 create table activated (
 	username text,
 	coursename text,
 	primary key (username, coursename),
-	foreign key (coursename) references courses (coursename) on update cascade on delete restrict
+	foreign key (coursename) references courses (coursename) on update cascade on delete cascade
 );
 
