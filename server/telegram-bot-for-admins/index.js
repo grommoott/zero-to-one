@@ -70,7 +70,7 @@ async function createBot() {
                 console.log(e)
             }
         } else if (msg.text?.startsWith("/deletecourse")) {
-            const match = msg.caption.match(/^\/deletecourse\s+"(.+)"/)
+            const match = msg.text.match(/^\/deletecourse\s+"(.+)"/)
 
             if (!match) {
                 bot.sendMessage(
