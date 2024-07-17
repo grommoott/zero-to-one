@@ -6,6 +6,7 @@ const fs = require("fs/promises")
 async function createBot() {
     const token = "7200014819:AAHnGd9s9Woa8_a-dCXB9foLmR5bkB5Z50Q" // кто скопирует тот лох
     const admins = (await pgClient.query("select username from admins")).rows
+    const bot = new TelegramBot(token, { polling: true })
 
     try {
         const courses = (
@@ -23,8 +24,6 @@ async function createBot() {
     } catch (e) {
         console.log(e)
     }
-
-    const bot = new TelegramBot(token, { polling: true })
 
     bot.onText(/^\/start/, (msg) => {
         bot.sendMessage(
