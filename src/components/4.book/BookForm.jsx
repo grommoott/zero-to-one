@@ -20,11 +20,6 @@ export default function BookForm() {
             <div className="flex flex-col">
                 <Select
                     options={courses?.map((val) => val.name) || []}
-                    onChange={(val) => {
-                        setInputData((data) => {
-                            return { ...data, courseId: val }
-                        })
-                    }}
                     selectedId={selectedCourse}
                     setSelectedId={setSelectedCourse}
                     placeholder="Не выбрано"
@@ -82,7 +77,7 @@ export default function BookForm() {
                             )
                         }
 
-                        if (inputData.courseId == undefined) {
+                        if (selectedCourse == -1) {
                             msg("выберите курс")
                             return
                         }
@@ -114,7 +109,7 @@ export default function BookForm() {
                                     username: inputData.username,
                                     keyword: inputData.keyword,
                                     courseName:
-                                        courses[inputData.courseId].name,
+                                        courses[selectedCourse].name,
                                 }),
                                 headers: {
                                     "Content-Type": "application/json"

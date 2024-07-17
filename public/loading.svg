@@ -1,13 +1,4 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<!-- Created using Krita: https://krita.org -->
-<svg xmlns="http://www.w3.org/2000/svg" 
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:krita="http://krita.org/namespaces/svg/krita"
-    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-    width="384pt"
-    height="384pt"
-    viewBox="0 0 384 384">
-<defs/>
-<path id="shape0" transform="translate(117.12, 192)" fill="none" stroke="#000000" stroke-width="24" stroke-linecap="round" stroke-linejoin="bevel" d="M0 129.696C46.3359 156.448 103.424 156.448 149.76 129.696C196.096 102.944 224.64 53.5041 224.64 0" sodipodi:nodetypes="ccc"/>
+<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.0001 12C20.0001 13.3811 19.6425 14.7386 18.9623 15.9405C18.282 17.1424 17.3022 18.1477 16.1182 18.8587C14.9341 19.5696 13.5862 19.9619 12.2056 19.9974C10.825 20.0328 9.45873 19.7103 8.23975 19.0612" stroke="#000000" stroke-width="3.55556" stroke-linecap="round"/>
 </svg>
