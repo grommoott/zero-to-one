@@ -1,6 +1,7 @@
 const express = require("express")
-const adminBot = require("./telegram-bot-for-admins")
-const bot = require("./telegram-bot")
+require("./telegram-bot-for-admins")
+require("./telegram-bot")
+require("./overdueOrderDestroyer")
 
 const cors = require("cors")
 const router = require("./router")
