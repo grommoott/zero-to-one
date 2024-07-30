@@ -72,7 +72,6 @@ module.exports = {
                     value: req.body.course.price,
                     currency: "RUB"
                 },
-                capture: true,
                 confirmation: {
                     type: "redirect",
                     return_url: "https://t.me/ZTOITSchoolOff_bot"
@@ -82,9 +81,7 @@ module.exports = {
 
             const response = await yookassa.createPayment(settings)
 
-            console.log(response)
-
-            createOrder(req.body.username, req.body.course.name, req.body.keyword, response.body.id)
+            createOrder(req.body.username, req.body.course.name, req.body.keyword, response.id)
                 .then(() => {
                     res.send(response.confirmation.confirmation_url)
                 })
