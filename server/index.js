@@ -4,7 +4,7 @@ const bot = require("./telegram-bot")
 
 const cors = require("cors")
 const router = require("./router")
-const PORT = process.env.PORT || 10000
+const PORT = 8443//process.env.PORT || 10000
 
 const app = express()
 
