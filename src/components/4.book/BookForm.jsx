@@ -1,19 +1,19 @@
-import Input from "@book/Input"
-import { useCoursesContex } from "../../CoursesContext"
-import Button from "../Button"
-import Select from "./Select"
-import { useEffect, useState } from "react"
-import { useSelectedCourseContext } from "../../SelectedCourseContext"
-import { useAnimate } from "framer-motion"
-import config from "../../config"
+import Input from "@book/Input";
+import { useCoursesContex } from "../../CoursesContext";
+import Button from "../Button";
+import Select from "./Select";
+import { useEffect, useState } from "react";
+import { useSelectedCourseContext } from "../../SelectedCourseContext";
+import { useAnimate } from "framer-motion";
+import config from "../../config";
 
 export default function BookForm() {
-    const courses = useCoursesContex()
-    const { selectedCourse, setSelectedCourse } = useSelectedCourseContext()
-    const [msgScope, animateMsg] = useAnimate()
-    const [processMsg, setProcessMsg] = useState()
+    const courses = useCoursesContex();
+    const { selectedCourse, setSelectedCourse } = useSelectedCourseContext();
+    const [msgScope, animateMsg] = useAnimate();
+    const [processMsg, setProcessMsg] = useState();
 
-    const [inputData, setInputData] = useState({})
+    const [inputData, setInputData] = useState({});
 
     return (
         <div className="flex flex-col sm:flex-row">
@@ -28,7 +28,7 @@ export default function BookForm() {
                     fieldName="Telegram username"
                     onChange={(val) =>
                         setInputData((data) => {
-                            return { ...data, username: val }
+                            return { ...data, username: val };
                         })
                     }
                 />
@@ -36,7 +36,7 @@ export default function BookForm() {
                     fieldName="Кодовое слово"
                     onChange={(val) =>
                         setInputData((data) => {
-                            return { ...data, keyword: val }
+                            return { ...data, keyword: val };
                         })
                     }
                 />
@@ -65,7 +65,7 @@ export default function BookForm() {
                     type="light"
                     onClick={async () => {
                         async function msg(error) {
-                            setProcessMsg(error)
+                            setProcessMsg(error);
                             animateMsg(
                                 msgScope.current,
                                 { scale: [0, 1.1, 1], opacity: [0, 1, 1] },
@@ -73,67 +73,58 @@ export default function BookForm() {
                                     duration: 0.3,
                                     ease: "easeInOut",
                                     times: [0, 0.7, 1],
-                                }
-                            )
+                                },
+                            );
                         }
 
                         if (selectedCourse == -1) {
-                            msg("выберите курс")
-                            return
+                            msg("выберите курс");
+                            return;
                         }
 
-                        if (
-                            inputData.username == "" ||
-                            inputData.username == undefined
-                        ) {
-                            msg("введите ваш username в telegram")
-                            return
+                        if (inputData.username == "" || inputData.username == undefined) {
+                            msg("введите ваш username в telegram");
+                            return;
                         }
 
-                        if (
-                            inputData.keyword == "" ||
-                            inputData.keyword == undefined
-                        ) {
-                            msg(
-                                "придумайте любое кодовое слово и запомните его"
-                            )
-                            return
+                        if (inputData.keyword == "" || inputData.keyword == undefined) {
+                            msg("придумайте любое кодовое слово и запомните его");
+                            return;
                         }
 
-                        msg("Запрос отправлен!")
+                        msg("Запрос отправлен!");
 
-                        const response = await fetch(
-                            config.api + "/makeOrder",
-                            {
-                                body: JSON.stringify({
-                                    username: inputData.username,
-                                    keyword: inputData.keyword,
-                                    courseName:
-                                        courses[selectedCourse].name,
-                                }),
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                method: "post"
-                            }
-                        )
+                        console.log(courses[selectedCourse])
+
+                        const response = await fetch(config.api + "/makeOrder", {
+                            body: JSON.stringify({
+                                username: inputData.username,
+                                keyword: inputData.keyword,
+                                course: courses[selectedCourse],
+                            }),
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            method: "post",
+                        });
 
                         if (response.status === 200) {
-                            location.replace("https://t.me/ZTOITSchoolOff_bot")
-                            window.open("https://t.me/ZTOITSchoolOff_bot", "_top")
+                            const url = await response.text()
+                            location.replace(url)
+                            window.open(url, "_top")
                         } else {
                             switch (response.statusText) {
                                 case "Course is already activated":
-                                    msg("Курс уже активирован (см. инструкцию)")
-                                    break
+                                    msg("Курс уже активирован (см. инструкцию)");
+                                    break;
 
                                 case "Order is already exists":
-                                    msg("Курс уже ждёт активации (см. инструкцию)")
-                                    break
+                                    msg("Курс уже ждёт активации (см. инструкцию)");
+                                    break;
 
                                 default:
-                                    msg("Произошла ошибка сервера, приносим свои извинения")
-                                    break
+                                    msg("Произошла ошибка сервера, приносим свои извинения");
+                                    break;
                             }
                         }
                     }}
@@ -149,5 +140,5 @@ export default function BookForm() {
                 </p>
             </div>
         </div>
-    )
+    );
 }

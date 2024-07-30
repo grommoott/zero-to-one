@@ -2,6 +2,8 @@ const path = require("path")
 const pgClient = require("./pgClient")
 const bcrypt = require("bcrypt")
 const { salt } = require("./config")
+const yookassa = require("./helpers/yookassa")
+const createOrder = require("./helpers/createOrder")
 
 module.exports = {
     getCourses: async (_, res) => {
@@ -33,14 +35,14 @@ module.exports = {
     makeOrder: async (req, res) => {
         if (
             !req.body.hasOwnProperty("username") ||
-            !req.body.hasOwnProperty("courseName") ||
+            !req.body.hasOwnProperty("course") ||
             !req.body.hasOwnProperty("keyword")
         ) {
             res.sendStatus(400)
         }
 
         try {
-            const response1 = await pgClient.query(`select * from courses where courseName='${req.body.courseName}'`)
+            const response1 = await pgClient.query(`select * from courses where courseName='${req.body.course.name}'`)
 
             if (response1.rowCount == 0) {
                 res.statusMessage = "Invalid courseName"
@@ -48,7 +50,7 @@ module.exports = {
                 return
             }
 
-            const response2 = await pgClient.query(`select * from orders where courseName='${req.body.courseName}' and username='${req.body.username}'`)
+            const response2 = await pgClient.query(`select * from orders where courseName='${req.body.course.name}' and username='${req.body.username}'`)
 
             if (response2.rowCount != 0) {
                 res.statusMessage = "Order is already exists"
@@ -56,7 +58,7 @@ module.exports = {
                 return
             }
 
-            const response3 = await pgClient.query(`select * from activated where courseName='${req.body.courseName}' and username='${req.body.username}'`)
+            const response3 = await pgClient.query(`select * from activated where courseName='${req.body.course.name}' and username='${req.body.username}'`)
 
             if (response3.rowCount != 0) {
                 res.statusMessage = "Course is already activated"
@@ -64,18 +66,32 @@ module.exports = {
                 return
             }
 
-            pgClient.query(
-                `insert into orders values ('${req.body.username}', '${
-                    req.body.courseName
-                }', '${await bcrypt.hash(
-                    req.body.keyword,
-                    salt
-                )}', ${response1.rows[0].price}, ${new Date().getTime()});`
-            )
-            res.sendStatus(200)
+            const settings = {
+                amount: {
+                    value: req.body.course.price,
+                    currency: "RUB"
+                },
+                capture: true,
+                confirmation: {
+                    type: "redirect",
+                    return_url: "https://t.me/ZTOITSchoolOff_bot"
+                },
+                description: req.body.course.name
+            }
+
+            const response = await yookassa.createPayment(settings)
+
+            createOrder(req.body.username, req.body.course.name, req.body.keyword, response.body.id)
+                .then(() => {
+                    res.send(response.confirmation.confirmation_url)
+                })
         } catch (e) {
             console.log(e)
             res.sendStatus(500)
         }
     },
+    yookassaWebhook: async (req, res) => {
+        console.log(req)
+        res.sendStatus(200)
+    }
 }
