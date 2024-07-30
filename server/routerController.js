@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt")
 const { salt } = require("./config")
 const yookassa = require("./helpers/yookassa")
 const createOrder = require("./helpers/createOrder")
+const payOrder = require("./helpers/payOrder")
 
 module.exports = {
     getCourses: async (_, res) => {
@@ -81,7 +82,7 @@ module.exports = {
 
             const response = await yookassa.createPayment(settings)
 
-            createOrder(req.body.username, req.body.course.name, req.body.keyword, req.body.id)
+            createOrder(req.body.username, req.body.course.name, req.body.keyword, response.body.id)
                 .then(() => {
                     res.send(response.confirmation.confirmation_url)
                 })
@@ -91,7 +92,10 @@ module.exports = {
         }
     },
     yookassaWebhook: async (req, res) => {
-        console.log(req)
         res.sendStatus(200)
+
+        if (req.body.event == "payment.succeeded") {
+            payOrder(req.body.object.id)
+        }
     }
 }
