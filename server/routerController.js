@@ -72,6 +72,7 @@ module.exports = {
                     value: req.body.course.price,
                     currency: "RUB"
                 },
+                capture: true,
                 confirmation: {
                     type: "redirect",
                     return_url: "https://t.me/ZTOITSchoolOff_bot"
