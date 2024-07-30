@@ -10,6 +10,7 @@ function createBot() {
 
     bot.on("chat_join_request", async ({ chat, from }) => {
         const courseName = await pgClient.query(`select coursename from courses where groupid=${chat.id}`)
+        console.log("chat join request")
 
         if (!courseName) {
             console.log("Invalid course name", courseName)
@@ -22,8 +23,10 @@ function createBot() {
             ).rowCount) == 1
 
         if (activated) {
+            console.log("accept")
             bot.approveChatJoinRequest(chat.id, from.id)
         } else {
+            console.log("cancel")
             bot.declineChatJoinRequest(chat.id, from.id)
         }
     })
