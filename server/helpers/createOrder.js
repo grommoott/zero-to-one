@@ -8,6 +8,6 @@ module.exports = async function createOrder(username, coursename, keyword, payme
         }', '${await bcrypt.hash(
             keyword,
             salt
-        )}', false, ${paymentId}, ${new Date().getTime()});`
+        )}', false, '${paymentId}', ${new Date().getTime()});`
     )
 }

@@ -94,8 +94,6 @@ export default function BookForm() {
 
                         msg("Запрос отправлен!");
 
-                        console.log(courses[selectedCourse])
-
                         const response = await fetch(config.api + "/makeOrder", {
                             body: JSON.stringify({
                                 username: inputData.username,
