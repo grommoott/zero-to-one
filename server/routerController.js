@@ -82,7 +82,7 @@ module.exports = {
 
             const response = await yookassa.createPayment(settings)
 
-            console.log(response.body)
+            console.log(response)
 
             createOrder(req.body.username, req.body.course.name, req.body.keyword, response.body.id)
                 .then(() => {
