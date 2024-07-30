@@ -15,4 +15,4 @@ class OverdueOrderDestroyer {
     }
 }
 
-module.exports = new OverdueOrderDestroyer(60_000, 60_000)
+module.exports = new OverdueOrderDestroyer(60_000, 3600_000)
