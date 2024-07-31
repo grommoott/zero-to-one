@@ -28,7 +28,7 @@ module.exports = {
         const response = await fetch(`https://api.yookassa.ru/v3/payments/${id}/capture`, {
             headers: {
                 ...defaultHeaders,
-                "Authorization": "Basic " + new Buffer(auth.username + ":" + user.password).toString("base64")
+                "Authorization": "Basic " + new Buffer(auth.username + ":" + auth.password).toString("base64")
             },
         })
 
