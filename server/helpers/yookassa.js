@@ -1,4 +1,4 @@
-const { v4: uuid } = require("uuid")
+const { randomUUID } = require("crypto")
 const axios = require("axios")
 
 const auth = {
@@ -8,7 +8,7 @@ const auth = {
 
 const defaultHeaders = {
     "Content-Type": "application/json",
-    "Idempotence-Key": uuid().toString()
+    "Idempotence-Key": randomUUID()
 }
 
 module.exports = {
