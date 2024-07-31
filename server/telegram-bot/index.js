@@ -105,8 +105,6 @@ function createBot() {
                 throw new Error()
             }
 
-            console.log(activatedCourse)
-
             Promise.all([
                 pgClient.query(
                     `delete from orders where username='${msg.from.username}' and courseName='${activatedCourse.coursename}'`
@@ -114,7 +112,7 @@ function createBot() {
                 pgClient.query(
                     `insert into activated values ('${msg.from.username}', '${activatedCourse.coursename}')`
                 ),
-                yookassa.acceptPayment(activatedCourse.paymentid)
+                yookassa.acceptPayment(selectedOrder.paymentid)
             ])
                 .then(() => {
                     bot.sendMessage(
