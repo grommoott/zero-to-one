@@ -25,11 +25,9 @@ module.exports = {
         }
     },
     acceptPayment: async (id) => {
-        const response = await fetch(`https://api.yookassa.ru/v3/payments/${id}/capture`, {
-            headers: {
-                ...defaultHeaders,
-                "Authorization": "Basic " + new Buffer(auth.username + ":" + auth.password).toString("base64")
-            },
+        const response = await axios.default.post(`https://api.yookassa.ru/v3/payments/${id}/capture`, {
+            headers: defaultHeaders,
+            auth
         })
 
         if (response.status != 200) {
@@ -37,11 +35,9 @@ module.exports = {
         }
     },
     cancelPayment: async (id) => {
-        const response = await fetch(`https://api.yookassa.ru/v3/payments/${id}/cancel`, {
-            headers: {
-                ...defaultHeaders,
-                "Authorization": "Basic " + new Buffer(auth.username + ":" + user.password).toString("base64")
-            },
+        const response = await axios.default.post(`https://api.yookassa.ru/v3/payments/${id}/cancel`, {
+            headers: defaultHeaders,
+            auth
         })
 
         if (response.status != 200) {
