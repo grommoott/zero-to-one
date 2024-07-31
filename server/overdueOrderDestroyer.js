@@ -10,9 +10,9 @@ class OverdueOrderDestroyer {
         }, interval)
     }
 
-    destroy() {
+    async destroy() {
         const date = new Date().getTime()
-        const orders = pgClient.query(`select * from orders where moment<${date - this.maxOffset}`)
+        const orders = (await pgClient.query(`select * from orders where moment<${date - this.maxOffset}`)).rows
 
         for (let order of orders) {
             yookassa.cancelPayment(order.paymentId)
