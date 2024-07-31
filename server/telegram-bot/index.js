@@ -2,6 +2,7 @@ const config = require("../config")
 const pgClient = require("../pgClient")
 const bcrypt = require("bcrypt")
 const TelegramBot = require("node-telegram-bot-api")
+const yookassa = require("../helpers/yookassa")
 
 function createBot() {
     const token = "6406717712:AAHZBB9Hj7v7ecVNCFO_PRaKBvOqKm8CWGo" // кто скопирует тот лох
@@ -34,7 +35,7 @@ function createBot() {
     bot.onText(/\/start/, (msg) => {
         bot.sendMessage(
             msg.chat.id,
-            'Используйте комманду list чтобы получить список курсов, доступных для активации с помощью команды activate (/activate "название курса" "кодовое слово") все доступные курсы'
+            'Используйте комманду list чтобы получить список курсов, доступных для активации, и с помощью команды activate (/activate "название курса" "кодовое слово") активируйте выбранный курс'
         )
     })
 
@@ -111,6 +112,7 @@ function createBot() {
                 pgClient.query(
                     `insert into activated values ('${msg.from.username}', '${activatedCourse.coursename}')`
                 ),
+                yookassa.acceptPayment(activatedCourse.paymentId)
             ])
                 .then(() => {
                     bot.sendMessage(

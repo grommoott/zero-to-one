@@ -1,4 +1,5 @@
 const pgClient = require("./pgClient");
+const yookassa = require("./helpers/yookassa")
 
 class OverdueOrderDestroyer {
     constructor(interval, maxOffset) {
@@ -11,6 +12,12 @@ class OverdueOrderDestroyer {
 
     destroy() {
         const date = new Date().getTime()
+        const orders = pgClient.query(`select * from orders where moment<${date - this.maxOffset}`)
+
+        for (let order of orders) {
+            yookassa.cancelPayment(order.paymentId)
+        }
+
         pgClient.query(`delete from orders where moment<${date - this.maxOffset}`)
     }
 }
