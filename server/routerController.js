@@ -93,7 +93,9 @@ module.exports = {
     yookassaWebhook: async (req, res) => {
         res.sendStatus(200)
 
-        if (req.body.event == "payment.succeeded") {
+        console.log(req.body.event)
+
+        if (req.body.event == "payment.waiting_for_capture") {
             payOrder(req.body.object.id)
         }
     }

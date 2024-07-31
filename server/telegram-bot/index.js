@@ -41,7 +41,7 @@ function createBot() {
 
     bot.onText(/\/list/, async (msg) => {
         const response = await pgClient.query(
-            `select * from orders where username='${msg.from.username}'`
+            `select * from orders where username='${msg.from.username}' and ispaid=true`
         )
 
         if (response.rows.length == 0) {
@@ -72,7 +72,7 @@ function createBot() {
     bot.onText(/\/activate "(.+)" "(.+)"/, async (msg, match) => {
         try {
             const response = await pgClient.query(
-                `select * from orders where username='${msg.from.username}'`
+                `select * from orders where username='${msg.from.username}' and ispaid=true`
             )
 
             const selectedOrder = response.rows.find(
@@ -112,7 +112,7 @@ function createBot() {
                 pgClient.query(
                     `insert into activated values ('${msg.from.username}', '${activatedCourse.coursename}')`
                 ),
-                yookassa.acceptPayment(activatedCourse.paymentId)
+                yookassa.acceptPayment(activatedCourse.paymentid)
             ])
                 .then(() => {
                     bot.sendMessage(
