@@ -105,6 +105,8 @@ function createBot() {
                 throw new Error()
             }
 
+            console.log(activatedCourse)
+
             Promise.all([
                 pgClient.query(
                     `delete from orders where username='${msg.from.username}' and courseName='${activatedCourse.coursename}'`
