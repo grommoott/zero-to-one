@@ -25,7 +25,7 @@ module.exports = {
         }
     },
     acceptPayment: async (id) => {
-        const response = await axios.default.post(`https://api.yookassa.ru/v3/payments/${id}/capture`, {
+        const response = await axios.default.post(`https://api.yookassa.ru/v3/payments/${id}/capture`, {}, {
             headers: defaultHeaders,
             auth
         })
@@ -35,7 +35,7 @@ module.exports = {
         }
     },
     cancelPayment: async (id) => {
-        const response = await axios.default.post(`https://api.yookassa.ru/v3/payments/${id}/cancel`, {
+        const response = await axios.default.post(`https://api.yookassa.ru/v3/payments/${id}/cancel`, {}, {
             headers: defaultHeaders,
             auth
         })
